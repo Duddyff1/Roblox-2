@@ -8,12 +8,22 @@
 </head>
 <body>
 
+    <!-- SMOOTH GAME LAUNCHING OVERLAY -->
+    <div id="game-overlay" class="game-loading-overlay">
+        <div class="loading-content">
+            <h2 id="loading-game-title">Joining Game...</h2>
+            <div class="roblox-spinner"></div>
+            <p>Connecting to Roblox server...</p>
+            <button class="buy-btn" style="background: #e74c3c; width: 150px; margin: 20px auto 0 auto;" onclick="leaveGame()">Cancel / Leave</button>
+        </div>
+    </div>
+
     <header>
         <div class="logo" onclick="switchPage('home')">ROBLOX</div>
         <nav>
             <a onclick="switchPage('home')">Games</a>
-            <a onclick="switchPage('catalog')">Catalog</a>
-            <a onclick="switchPage('inventory')">Shop / Inventory</a>
+            <a onclick="switchPage('shop')">Shop</a>
+            <a onclick="switchPage('avatar')">Avatar</a>
             <a onclick="switchPage('profile')">Profile</a>
             <a onclick="switchPage('friends')">Friends <span class="badge">2</span></a>
             <a onclick="switchPage('messages')">Messages</a>
@@ -74,21 +84,10 @@
             </div>
         </div>
 
-        <!-- GAME LAUNCHER OVERLAY -->
-        <div id="game-player" class="page">
-            <div class="launcher-screen">
-                <h1 id="playing-title">Loading Game...</h1>
-                <div class="loader-box">
-                    <div class="spinner"></div>
-                    <p>Connecting to Roblox servers...</p>
-                </div>
-                <button class="buy-btn" style="max-width: 200px; background: #e74c3c; margin: 0 auto;" onclick="switchPage('home')">Leave Game</button>
-            </div>
-        </div>
-
-        <!-- CATALOG (AVATAR SHOP) -->
-        <div id="catalog" class="page">
-            <h2>Avatar Shop</h2>
+        <!-- SHOP TAB (MERGED SHOP + CATALOG ITEMS) -->
+        <div id="shop" class="page">
+            <h2>Shop / Avatar Store</h2>
+            <p>Purchase items using your fake Robux. Once bought, they appear in your Avatar Editor!</p>
             <div class="grid">
                 <div class="card">
                     <div class="thumbnail" style="background: #2f3542;">Dominus Empyreus</div>
@@ -125,12 +124,35 @@
             </div>
         </div>
 
-        <!-- SHOP / INVENTORY (EQUIP PAGE) -->
-        <div id="inventory" class="page">
-            <h2>My Inventory & Avatar Customizer</h2>
-            <p>Click "Wear" or "Remove" on items to customize your character appearance.</p>
-            <div id="inventory-grid" class="grid">
-                <!-- Dynamically populated items appear here -->
+        <!-- AVATAR TAB (CSS BOY ON LEFT, INVENTORY ON RIGHT) -->
+        <div id="avatar" class="page">
+            <h2>Avatar Editor</h2>
+            <div class="avatar-editor-layout">
+                <!-- Left Side: Roblox Boy Avatar Renderer -->
+                <div class="avatar-preview-container">
+                    <h3>Character</h3>
+                    <div class="roblox-boy-model">
+                        <div id="avatar-head" class="boy-head">
+                            <div id="hat-container" class="boy-hat-slot"></div>
+                        </div>
+                        <div class="boy-torso"></div>
+                        <div class="boy-limbs">
+                            <div class="boy-arm left"></div>
+                            <div class="boy-arm right"></div>
+                            <div class="boy-leg left"></div>
+                            <div class="boy-leg right"></div>
+                        </div>
+                    </div>
+                    <p style="font-size: 11px; color: #666; margin-top: 10px;">Classic Blocky Rig</p>
+                </div>
+
+                <!-- Right Side: Owned/Equippable Items Inventory -->
+                <div class="inventory-container">
+                    <h3>My Inventory Items</h3>
+                    <div id="inventory-grid" class="grid" style="margin-top: 5px;">
+                        <!-- Dynamically populated items appear here -->
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -138,14 +160,11 @@
         <div id="profile" class="page">
             <h2>My Profile</h2>
             <div class="profile-card">
-                <div class="avatar-preview-box" id="avatar-display">
-                    <span>No Items Equipped</span>
-                </div>
                 <div class="profile-info">
                     <h3>Duddyff1</h3>
-                    <p><strong>Status:</strong> Building awesome games on GitHub Pages!</p>
+                    <p><strong>Status:</strong> Playing custom Roblox site on GitHub Pages!</p>
                     <p><strong>Robux:</strong> <span id="profile-robux">500</span> R$</p>
-                    <button class="buy-btn" style="max-width: 150px;" onclick="switchPage('inventory')">Change Avatar</button>
+                    <button class="buy-btn" style="max-width: 150px;" onclick="switchPage('avatar')">Edit Avatar</button>
                 </div>
             </div>
         </div>
@@ -176,9 +195,7 @@
             <h2>Messages</h2>
             <div class="settings-box" style="max-width: 100%;">
                 <h3>Inbox</h3>
-                <p><strong>System:</strong> Welcome to your custom Roblox platform, Duddyff1! Enjoy your free Robux and themes.</p>
-                <hr style="border: 0; border-top: 1px solid #ddd; margin: 10px 0;">
-                <p><strong>RobloxNoob123:</strong> Hey, can you help me build a script for my game?</p>
+                <p><strong>System:</strong> Welcome to your site, Duddyff1!</p>
             </div>
         </div>
 
