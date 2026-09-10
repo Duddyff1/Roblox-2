@@ -13,6 +13,11 @@
         <nav>
             <a onclick="switchPage('home')">Games</a>
             <a onclick="switchPage('catalog')">Catalog</a>
+            <a onclick="switchPage('inventory')">Shop / Inventory</a>
+            <a onclick="switchPage('profile')">Profile</a>
+            <a onclick="switchPage('friends')">Friends <span class="badge">2</span></a>
+            <a onclick="switchPage('messages')">Messages</a>
+            <a onclick="switchPage('robux-store')">Robux</a>
             <a onclick="switchPage('settings')">Settings</a>
             <span class="user-stats">R$ <span id="robux-count">500</span></span>
         </nav>
@@ -24,66 +29,64 @@
         <div id="home" class="page active">
             <h2>Featured Games</h2>
             <div class="grid">
-                <div class="card" onclick="alert('Launching Adopt Me!...')">
+                <div class="card" onclick="launchGame('Adopt Me!')">
                     <div class="thumbnail" style="background: #ff6b81;">Adopt Me!</div>
                     <div class="card-body">
                         <div class="card-title">Adopt Me!</div>
                         <div class="card-info">👥 45.2K active</div>
                     </div>
                 </div>
-                <div class="card" onclick="alert('Launching Brookhaven RP...')">
+                <div class="card" onclick="launchGame('Brookhaven RP')">
                     <div class="thumbnail" style="background: #3742fa;">Brookhaven</div>
                     <div class="card-body">
                         <div class="card-title">Brookhaven RP</div>
                         <div class="card-info">👥 89.1K active</div>
                     </div>
                 </div>
-                <div class="card" onclick="alert('Launching BedWars...')">
+                <div class="card" onclick="launchGame('BedWars')">
                     <div class="thumbnail" style="background: #ffa502;">BedWars</div>
                     <div class="card-body">
                         <div class="card-title">BedWars</div>
                         <div class="card-info">👥 18.5K active</div>
                     </div>
                 </div>
-                <div class="card" onclick="alert('Launching Tower of Hell...')">
+                <div class="card" onclick="launchGame('Tower of Hell')">
                     <div class="thumbnail" style="background: #2ed573;">Tower of Hell</div>
                     <div class="card-body">
                         <div class="card-title">Tower of Hell</div>
                         <div class="card-info">👥 12.3K active</div>
                     </div>
                 </div>
-                <div class="card" onclick="alert('Launching Blox Fruits...')">
+                <div class="card" onclick="launchGame('Blox Fruits')">
                     <div class="thumbnail" style="background: #ff4757;">Blox Fruits</div>
                     <div class="card-body">
                         <div class="card-title">Blox Fruits</div>
                         <div class="card-info">👥 348K active</div>
                     </div>
                 </div>
-                <div class="card" onclick="alert('Launching Murder Mystery 2...')">
+                <div class="card" onclick="launchGame('Murder Mystery 2')">
                     <div class="thumbnail" style="background: #57606f;">MM2</div>
                     <div class="card-body">
                         <div class="card-title">Murder Mystery 2</div>
                         <div class="card-info">👥 62.1K active</div>
                     </div>
                 </div>
-                <div class="card" onclick="alert('Launching Jailbreak...')">
-                    <div class="thumbnail" style="background: #1e90ff;">Jailbreak</div>
-                    <div class="card-body">
-                        <div class="card-title">Jailbreak</div>
-                        <div class="card-info">👥 15.4K active</div>
-                    </div>
-                </div>
-                <div class="card" onclick="alert('Launching Piggy...')">
-                    <div class="thumbnail" style="background: #70a1ff;">Piggy</div>
-                    <div class="card-body">
-                        <div class="card-title">Piggy</div>
-                        <div class="card-info">👥 9.8K active</div>
-                    </div>
-                </div>
             </div>
         </div>
 
-        <!-- CATALOG PAGE -->
+        <!-- GAME LAUNCHER OVERLAY -->
+        <div id="game-player" class="page">
+            <div class="launcher-screen">
+                <h1 id="playing-title">Loading Game...</h1>
+                <div class="loader-box">
+                    <div class="spinner"></div>
+                    <p>Connecting to Roblox servers...</p>
+                </div>
+                <button class="buy-btn" style="max-width: 200px; background: #e74c3c; margin: 0 auto;" onclick="switchPage('home')">Leave Game</button>
+            </div>
+        </div>
+
+        <!-- CATALOG (AVATAR SHOP) -->
         <div id="catalog" class="page">
             <h2>Avatar Shop</h2>
             <div class="grid">
@@ -92,7 +95,7 @@
                     <div class="card-body">
                         <div class="card-title">Dominus Empyreus</div>
                         <div class="card-info">R$ 100</div>
-                        <button class="buy-btn" onclick="buyItem(100, 'Dominus Empyreus')">Buy</button>
+                        <button class="buy-btn" onclick="buyItem(100, 'Dominus Empyreus', '#2f3542')">Buy Item</button>
                     </div>
                 </div>
                 <div class="card">
@@ -100,7 +103,7 @@
                     <div class="card-body">
                         <div class="card-title">Valkyrie Helm</div>
                         <div class="card-info">R$ 50</div>
-                        <button class="buy-btn" onclick="buyItem(50, 'Valkyrie Helm')">Buy</button>
+                        <button class="buy-btn" onclick="buyItem(50, 'Valkyrie Helm', '#747d8c')">Buy Item</button>
                     </div>
                 </div>
                 <div class="card">
@@ -108,15 +111,111 @@
                     <div class="card-body">
                         <div class="card-title">Party Fedora</div>
                         <div class="card-info">R$ 15</div>
-                        <button class="buy-btn" onclick="buyItem(15, 'Party Fedora')">Buy</button>
+                        <button class="buy-btn" onclick="buyItem(15, 'Party Fedora', '#a4b0be')">Buy Item</button>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="thumbnail" style="background: #ff6b81;">Builder's Club Hat</div>
+                    <div class="thumbnail" style="background: #ff6b81;">BC Hardhat</div>
                     <div class="card-body">
                         <div class="card-title">BC Hardhat</div>
                         <div class="card-info">R$ 10</div>
-                        <button class="buy-btn" onclick="buyItem(10, 'BC Hardhat')">Buy</button>
+                        <button class="buy-btn" onclick="buyItem(10, 'BC Hardhat', '#ff6b81')">Buy Item</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SHOP / INVENTORY (EQUIP PAGE) -->
+        <div id="inventory" class="page">
+            <h2>My Inventory & Avatar Customizer</h2>
+            <p>Click "Wear" or "Remove" on items to customize your character appearance.</p>
+            <div id="inventory-grid" class="grid">
+                <!-- Dynamically populated items appear here -->
+            </div>
+        </div>
+
+        <!-- PROFILE PAGE -->
+        <div id="profile" class="page">
+            <h2>My Profile</h2>
+            <div class="profile-card">
+                <div class="avatar-preview-box" id="avatar-display">
+                    <span>No Items Equipped</span>
+                </div>
+                <div class="profile-info">
+                    <h3>Duddyff1</h3>
+                    <p><strong>Status:</strong> Building awesome games on GitHub Pages!</p>
+                    <p><strong>Robux:</strong> <span id="profile-robux">500</span> R$</p>
+                    <button class="buy-btn" style="max-width: 150px;" onclick="switchPage('inventory')">Change Avatar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- FRIENDS PAGE -->
+        <div id="friends" class="page">
+            <h2>Friends (2 Online)</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="thumbnail" style="background: #3742fa;">RobloxNoob123</div>
+                    <div class="card-body">
+                        <div class="card-title">RobloxNoob123</div>
+                        <div class="card-info" style="color: #2ecc71;">🟢 Playing Adopt Me!</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="thumbnail" style="background: #e67e22;">CoolBuilder99</div>
+                    <div class="card-body">
+                        <div class="card-title">CoolBuilder99</div>
+                        <div class="card-info" style="color: #2ecc71;">🟢 In Studio</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MESSAGES PAGE -->
+        <div id="messages" class="page">
+            <h2>Messages</h2>
+            <div class="settings-box" style="max-width: 100%;">
+                <h3>Inbox</h3>
+                <p><strong>System:</strong> Welcome to your custom Roblox platform, Duddyff1! Enjoy your free Robux and themes.</p>
+                <hr style="border: 0; border-top: 1px solid #ddd; margin: 10px 0;">
+                <p><strong>RobloxNoob123:</strong> Hey, can you help me build a script for my game?</p>
+            </div>
+        </div>
+
+        <!-- ROBUX STORE -->
+        <div id="robux-store" class="page">
+            <h2>Buy Fake Robux (Free Unlimited Balance)</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="thumbnail" style="background: #2ecc71;">400 Robux</div>
+                    <div class="card-body">
+                        <div class="card-title">400 R$ Pack</div>
+                        <div class="card-info">Fake Cost: $0.00</div>
+                        <button class="buy-btn" onclick="addRobux(400)">Get Free</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="thumbnail" style="background: #27ae60;">4,500 Robux</div>
+                    <div class="card-body">
+                        <div class="card-title">4,500 R$ Pack</div>
+                        <div class="card-info">Fake Cost: $0.00</div>
+                        <button class="buy-btn" onclick="addRobux(4500)">Get Free</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="thumbnail" style="background: #e67e22;">10,000 Robux</div>
+                    <div class="card-body">
+                        <div class="card-title">10,000 R$ Pack</div>
+                        <div class="card-info">Fake Cost: $0.00</div>
+                        <button class="buy-btn" onclick="addRobux(10000)">Get Free</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="thumbnail" style="background: #c0392b;">200,000 Robux</div>
+                    <div class="card-body">
+                        <div class="card-title">200,000 R$ Ultimate Pack</div>
+                        <div class="card-info">Fake Cost: $0.00</div>
+                        <button class="buy-btn" onclick="addRobux(200000)">Get Free</button>
                     </div>
                 </div>
             </div>
