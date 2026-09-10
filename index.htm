@@ -8,18 +8,81 @@
 </head>
 <body>
 
-    <!-- SMOOTH GAME LAUNCHING OVERLAY -->
+    <!-- 3-SECOND GAME LOADING OVERLAY -->
     <div id="game-overlay" class="game-loading-overlay">
         <div class="loading-content">
+            <div id="custom-game-thumbnail" class="loading-game-thumb"></div>
             <h2 id="loading-game-title">Joining Game...</h2>
             <div class="roblox-spinner"></div>
-            <p>Connecting to Roblox server...</p>
-            <button class="buy-btn" style="background: #e74c3c; width: 150px; margin: 20px auto 0 auto;" onclick="leaveGame()">Cancel / Leave</button>
+            <p id="loading-status-text">Connecting to Roblox server (3s)...</p>
+            <button class="buy-btn" style="background: #e74c3c; width: 150px; margin: 20px auto 0 auto;" onclick="cancelGameLoad()">Cancel / Leave</button>
+        </div>
+    </div>
+
+    <!-- IN-GAME INTERACTIVE WINDOW (SLAY THE DRAGONS & OTHERS) -->
+    <div id="active-game-window" class="active-game-container">
+        <div class="game-top-bar">
+            <span id="active-game-name-display" style="font-weight: bold; font-size: 16px;">Slay the Dragons</span>
+            <div class="game-hud-stats">
+                <span>Coins: <strong id="game-coins">0</strong></span>
+                <span>Robux: <strong id="game-in-robux">500</strong> R$</span>
+                <button class="buy-btn" style="background: #e74c3c; width: auto; padding: 4px 10px; margin: 0;" onclick="exitActiveGame()">Leave Game</button>
+            </div>
+        </div>
+
+        <div class="game-viewport">
+            <!-- Left Controls / Actions Panel -->
+            <div class="game-control-panel">
+                <h3>Actions</h3>
+                <button class="buy-btn" style="background: #e67e22;" onclick="attackDragon()">⚔️ Attack Dragon</button>
+                <button class="buy-btn" style="background: #9b59b6;" onclick="openGameTab('shop')">🛒 Game Shop</button>
+                <button class="buy-btn" style="background: #3498db;" onclick="openGameTab('inventory')">🎒 Inventory</button>
+                <button class="buy-btn" style="background: #1abc9c;" onclick="openGameTab('trading')">🤝 Trade Center</button>
+            </div>
+
+            <!-- Center Arena / Avatar Renderer -->
+            <div class="game-arena">
+                <div id="dragon-boss" class="dragon-boss-box">
+                    <h3>🐉 Dragon Boss</h3>
+                    <p>HP: <span id="dragon-hp">100</span> / 100</p>
+                    <div class="health-bar-container"><div id="dragon-health-fill" class="health-bar-fill"></div></div>
+                </div>
+
+                <!-- Player's Custom Avatar loaded into the game -->
+                <div class="ingame-player-container">
+                    <div class="roblox-boy-model scale-up">
+                        <div id="ingame-avatar-head" class="boy-head">
+                            <div id="ingame-hat-container" class="boy-hat-slot"></div>
+                        </div>
+                        <div class="boy-torso"></div>
+                        <div class="boy-limbs">
+                            <div class="boy-arm left"></div>
+                            <div class="boy-arm right"></div>
+                            <div class="boy-leg left"></div>
+                            <div class="boy-leg right"></div>
+                        </div>
+                    </div>
+                    <p style="color: white; font-weight: bold; margin-top: 5px;">Duddyff1 (You)</p>
+                </div>
+            </div>
+
+            <!-- Right Dynamic Menu Drawer (Shop / Inventory / Trading) -->
+            <div id="game-drawer" class="game-drawer-panel">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 5px;">
+                    <h3 id="drawer-title" style="margin: 0; color: white;">Shop</h3>
+                    <button onclick="closeGameTab()" style="background: none; border: none; color: white; font-size: 16px; cursor: pointer;">✕</button>
+                </div>
+                <div id="drawer-content" style="margin-top: 10px; overflow-y: auto; max-height: 380px;">
+                    <!-- Dynamically injected items -->
+                </div>
+            </div>
         </div>
     </div>
 
     <header>
-        <div class="logo" onclick="switchPage('home')">ROBLOX</div>
+        <div class="logo-container" onclick="switchPage('home')">
+            <div id="site-logo" class="logo">ROBLOX</div>
+        </div>
         <nav>
             <a onclick="switchPage('home')">Games</a>
             <a onclick="switchPage('shop')">Shop</a>
@@ -39,6 +102,14 @@
         <div id="home" class="page active">
             <h2>Featured Games</h2>
             <div class="grid">
+                <!-- Slay the Dragons Game Card -->
+                <div class="card" onclick="launchGame('Slay the Dragons', 'dragon')">
+                    <div class="thumbnail" style="background: #e74c3c; background-image: url('image_43c4e1.png'); background-size: cover; background-position: center;"></div>
+                    <div class="card-body">
+                        <div class="card-title">Slay the Dragons</div>
+                        <div class="card-info">👥 24.8K active</div>
+                    </div>
+                </div>
                 <div class="card" onclick="launchGame('Adopt Me!')">
                     <div class="thumbnail" style="background: #ff6b81;">Adopt Me!</div>
                     <div class="card-body">
@@ -74,20 +145,13 @@
                         <div class="card-info">👥 348K active</div>
                     </div>
                 </div>
-                <div class="card" onclick="launchGame('Murder Mystery 2')">
-                    <div class="thumbnail" style="background: #57606f;">MM2</div>
-                    <div class="card-body">
-                        <div class="card-title">Murder Mystery 2</div>
-                        <div class="card-info">👥 62.1K active</div>
-                    </div>
-                </div>
             </div>
         </div>
 
-        <!-- SHOP TAB (MERGED SHOP + CATALOG ITEMS) -->
+        <!-- SHOP TAB -->
         <div id="shop" class="page">
             <h2>Shop / Avatar Store</h2>
-            <p>Purchase items using your fake Robux. Once bought, they appear in your Avatar Editor!</p>
+            <p>Purchase items using your fake Robux. Once bought, they appear in your Avatar tab!</p>
             <div class="grid">
                 <div class="card">
                     <div class="thumbnail" style="background: #2f3542;">Dominus Empyreus</div>
@@ -124,11 +188,10 @@
             </div>
         </div>
 
-        <!-- AVATAR TAB (CSS BOY ON LEFT, INVENTORY ON RIGHT) -->
+        <!-- AVATAR TAB -->
         <div id="avatar" class="page">
             <h2>Avatar Editor</h2>
             <div class="avatar-editor-layout">
-                <!-- Left Side: Roblox Boy Avatar Renderer -->
                 <div class="avatar-preview-container">
                     <h3>Character</h3>
                     <div class="roblox-boy-model">
@@ -146,12 +209,9 @@
                     <p style="font-size: 11px; color: #666; margin-top: 10px;">Classic Blocky Rig</p>
                 </div>
 
-                <!-- Right Side: Owned/Equippable Items Inventory -->
                 <div class="inventory-container">
                     <h3>My Inventory Items</h3>
-                    <div id="inventory-grid" class="grid" style="margin-top: 5px;">
-                        <!-- Dynamically populated items appear here -->
-                    </div>
+                    <div id="inventory-grid" class="grid" style="margin-top: 5px;"></div>
                 </div>
             </div>
         </div>
@@ -162,7 +222,7 @@
             <div class="profile-card">
                 <div class="profile-info">
                     <h3>Duddyff1</h3>
-                    <p><strong>Status:</strong> Playing custom Roblox site on GitHub Pages!</p>
+                    <p><strong>Status:</strong> Slaying dragons and trading items!</p>
                     <p><strong>Robux:</strong> <span id="profile-robux">500</span> R$</p>
                     <button class="buy-btn" style="max-width: 150px;" onclick="switchPage('avatar')">Edit Avatar</button>
                 </div>
@@ -177,7 +237,7 @@
                     <div class="thumbnail" style="background: #3742fa;">RobloxNoob123</div>
                     <div class="card-body">
                         <div class="card-title">RobloxNoob123</div>
-                        <div class="card-info" style="color: #2ecc71;">🟢 Playing Adopt Me!</div>
+                        <div class="card-info" style="color: #2ecc71;">🟢 Playing Slay the Dragons</div>
                     </div>
                 </div>
                 <div class="card">
@@ -195,7 +255,7 @@
             <h2>Messages</h2>
             <div class="settings-box" style="max-width: 100%;">
                 <h3>Inbox</h3>
-                <p><strong>System:</strong> Welcome to your site, Duddyff1!</p>
+                <p><strong>System:</strong> Welcome back, Duddyff1! Trading system is now online.</p>
             </div>
         </div>
 
