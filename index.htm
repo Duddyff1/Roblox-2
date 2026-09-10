@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox - Home</title>
+    <title>Roblox</title>
     <style>
         :root {
-            --nav-bg: #111111;
-            --body-bg: #f3f3f3;
-            --text-color: #333333;
+            --nav-bg: #232527;
+            --body-bg: #f5f5f5;
+            --text-color: #393b3d;
             --card-bg: #ffffff;
-            --accent-color: #0074bd;
-            --border-color: #dddddd;
+            --accent-color: #0084ff;
+            --border-color: #bdf;
         }
 
-        /* 2018 Classic Theme Variables */
+        /* 2018 Roblox Classic Theme */
         body.theme-2018 {
-            --nav-bg: #1f1f1f;
+            --nav-bg: #000000;
             --body-bg: #e6e6e6;
             --text-color: #000000;
             --card-bg: #ffffff;
-            --accent-color: #0084ff;
-            --border-color: #b3b3b3;
+            --accent-color: #0066cc;
+            --border-color: #cccccc;
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             background-color: var(--body-bg);
             color: var(--text-color);
@@ -35,39 +35,50 @@
         header {
             background-color: var(--nav-bg);
             color: white;
-            padding: 12px 24px;
+            padding: 10px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 2px solid #000;
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: bold;
-            letter-spacing: 1px;
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 2px;
             cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
         }
 
         nav a {
             color: white;
             text-decoration: none;
             margin-left: 20px;
-            font-size: 14px;
+            font-size: 15px;
+            font-weight: 600;
             cursor: pointer;
         }
 
         nav a:hover {
-            text-decoration: underline;
+            color: #00a2ff;
         }
 
         .user-stats {
             margin-left: 20px;
             font-weight: bold;
             color: #2ecc71;
+            background: rgba(255,255,255,0.1);
+            padding: 5px 10px;
+            border-radius: 4px;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 20px auto;
             padding: 0 16px;
         }
@@ -81,13 +92,14 @@
         }
 
         h2 {
-            border-bottom: 2px solid var(--border-color);
+            border-bottom: 2px solid #ccc;
             padding-bottom: 8px;
+            margin-top: 0;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             gap: 16px;
             margin-top: 16px;
         }
@@ -95,67 +107,78 @@
         .card {
             background: var(--card-bg);
             border-radius: 6px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             overflow: hidden;
             transition: transform 0.2s;
             cursor: pointer;
-            border: 1px solid var(--border-color);
+            border: 1px solid #ddd;
         }
 
         .card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
         }
 
         .thumbnail {
-            height: 120px;
-            background-color: #ccc;
-            background-size: cover;
-            background-position: center;
+            height: 140px;
+            background: linear-gradient(135deg, #0074bd, #00a2ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+            text-align: center;
+            padding: 10px;
         }
 
         .card-body {
-            padding: 12px;
+            padding: 10px;
         }
 
         .card-title {
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13px;
             margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .card-info {
-            font-size: 12px;
+            font-size: 11px;
             color: #666;
         }
 
         .buy-btn {
             margin-top: 8px;
-            background-color: var(--accent-color);
+            background-color: #2ecc71;
             color: white;
             border: none;
-            padding: 6px 12px;
+            padding: 6px;
             border-radius: 4px;
             cursor: pointer;
             width: 100%;
             font-weight: bold;
+            font-size: 12px;
         }
 
         .buy-btn:hover {
             opacity: 0.9;
         }
 
-        /* Settings Style */
         .settings-box {
             background: var(--card-bg);
             padding: 20px;
             border-radius: 6px;
-            border: 1px solid var(--border-color);
+            border: 1px solid #ddd;
             max-width: 400px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
         .settings-box label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-weight: bold;
         }
 
@@ -163,7 +186,8 @@
             width: 100%;
             padding: 8px;
             border-radius: 4px;
-            border: 1px solid var(--border-color);
+            border: 1px solid #ccc;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -181,81 +205,103 @@
 
     <div class="container">
         
-        <!-- HOME / GAMES PAGE -->
+        <!-- GAMES PAGE -->
         <div id="home" class="page active">
             <h2>Featured Games</h2>
             <div class="grid">
                 <div class="card" onclick="alert('Launching Adopt Me!...')">
-                    <div class="thumbnail" style="background-image: url('https://tr.rbxcdn.com/186nd/9bfa24355208f23fef617d3dcfb188c0/150/150/Image/Png');"></div>
+                    <div class="thumbnail" style="background: #ff6b81;">Adopt Me!</div>
                     <div class="card-body">
                         <div class="card-title">Adopt Me!</div>
                         <div class="card-info">👥 45.2K active</div>
                     </div>
                 </div>
                 <div class="card" onclick="alert('Launching Brookhaven RP...')">
-                    <div class="thumbnail" style="background-image: url('https://tr.rbxcdn.com/186nd/0d3aa4ee83688b1b22e1b157a9159f8c/150/150/Image/Png');"></div>
+                    <div class="thumbnail" style="background: #3742fa;">Brookhaven</div>
                     <div class="card-body">
                         <div class="card-title">Brookhaven RP</div>
                         <div class="card-info">👥 89.1K active</div>
                     </div>
                 </div>
                 <div class="card" onclick="alert('Launching BedWars...')">
-                    <div class="thumbnail" style="background-image: url('https://tr.rbxcdn.com/186nd/8a2f814ea3b11efec67e41b9e2ed31e7/150/150/Image/Png');"></div>
+                    <div class="thumbnail" style="background: #ffa502;">BedWars</div>
                     <div class="card-body">
                         <div class="card-title">BedWars</div>
                         <div class="card-info">👥 18.5K active</div>
                     </div>
                 </div>
                 <div class="card" onclick="alert('Launching Tower of Hell...')">
-                    <div class="thumbnail" style="background-image: url('https://tr.rbxcdn.com/186nd/07a72d73df5a6e8e50b73c914e9185a6/150/150/Image/Png');"></div>
+                    <div class="thumbnail" style="background: #2ed573;">Tower of Hell</div>
                     <div class="card-body">
                         <div class="card-title">Tower of Hell</div>
                         <div class="card-info">👥 12.3K active</div>
                     </div>
                 </div>
                 <div class="card" onclick="alert('Launching Blox Fruits...')">
-                    <div class="thumbnail" style="background-image: url('https://tr.rbxcdn.com/186nd/40590a2a290ed36423ca87807b5a837f/150/150/Image/Png');"></div>
+                    <div class="thumbnail" style="background: #ff4757;">Blox Fruits</div>
                     <div class="card-body">
                         <div class="card-title">Blox Fruits</div>
                         <div class="card-info">👥 348K active</div>
                     </div>
                 </div>
                 <div class="card" onclick="alert('Launching Murder Mystery 2...')">
-                    <div class="thumbnail" style="background-image: url('https://tr.rbxcdn.com/186nd/4597b6e4e08b1cbca0fb13a0c4923e47/150/150/Image/Png');"></div>
+                    <div class="thumbnail" style="background: #57606f;">MM2</div>
                     <div class="card-body">
                         <div class="card-title">Murder Mystery 2</div>
                         <div class="card-info">👥 62.1K active</div>
                     </div>
                 </div>
+                <div class="card" onclick="alert('Launching Jailbreak...')">
+                    <div class="thumbnail" style="background: #1e90ff;">Jailbreak</div>
+                    <div class="card-body">
+                        <div class="card-title">Jailbreak</div>
+                        <div class="card-info">👥 15.4K active</div>
+                    </div>
+                </div>
+                <div class="card" onclick="alert('Launching Piggy...')">
+                    <div class="thumbnail" style="background: #70a1ff;">Piggy</div>
+                    <div class="card-body">
+                        <div class="card-title">Piggy</div>
+                        <div class="card-info">👥 9.8K active</div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- CATALOG / SHOP PAGE -->
+        <!-- CATALOG PAGE -->
         <div id="catalog" class="page">
-            <h2>Avatar Shop / Catalog</h2>
+            <h2>Avatar Shop</h2>
             <div class="grid">
                 <div class="card">
-                    <div class="thumbnail" style="background-image: url('https://tr.rbxcdn.com/6a56fbf383a1b802a80695d8206d289b/150/150/Image/Png');"></div>
+                    <div class="thumbnail" style="background: #2f3542;">Dominus Empyreus</div>
                     <div class="card-body">
                         <div class="card-title">Dominus Empyreus</div>
                         <div class="card-info">R$ 100</div>
-                        <button class="buy-btn" onclick="buyItem(100, 'Dominus Empyreus')">Buy Item</button>
+                        <button class="buy-btn" onclick="buyItem(100, 'Dominus Empyreus')">Buy</button>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="thumbnail" style="background-image: url('https://tr.rbxcdn.com/5333ae4c8529f798889aa79d681c2bc0/150/150/Image/Png');"></div>
+                    <div class="thumbnail" style="background: #747d8c;">Valkyrie Helm</div>
                     <div class="card-body">
                         <div class="card-title">Valkyrie Helm</div>
                         <div class="card-info">R$ 50</div>
-                        <button class="buy-btn" onclick="buyItem(50, 'Valkyrie Helm')">Buy Item</button>
+                        <button class="buy-btn" onclick="buyItem(50, 'Valkyrie Helm')">Buy</button>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="thumbnail" style="background-image: url('https://tr.rbxcdn.com/47d6928e0ec53aaef075a32b85e052cf/150/150/Image/Png');"></div>
+                    <div class="thumbnail" style="background: #a4b0be;">Party Fedora</div>
                     <div class="card-body">
                         <div class="card-title">Party Fedora</div>
                         <div class="card-info">R$ 15</div>
-                        <button class="buy-btn" onclick="buyItem(15, 'Party Fedora')">Buy Item</button>
+                        <button class="buy-btn" onclick="buyItem(15, 'Party Fedora')">Buy</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="thumbnail" style="background: #ff6b81;">Builder's Club Hat</div>
+                    <div class="card-body">
+                        <div class="card-title">BC Hardhat</div>
+                        <div class="card-info">R$ 10</div>
+                        <button class="buy-btn" onclick="buyItem(10, 'BC Hardhat')">Buy</button>
                     </div>
                 </div>
             </div>
@@ -265,7 +311,7 @@
         <div id="settings" class="page">
             <h2>Settings</h2>
             <div class="settings-box">
-                <label for="theme-selector">Select Website Theme:</label>
+                <label for="theme-selector">Website Theme Style:</label>
                 <select id="theme-selector" onchange="changeTheme(this.value)">
                     <option value="modern">Modern Roblox Theme</option>
                     <option value="2018">2018 Roblox Classic Theme</option>
@@ -279,11 +325,7 @@
         let robux = 500;
 
         function switchPage(pageId) {
-            // Hide all pages
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-            
-            // Show requested page
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
         }
 
@@ -299,9 +341,9 @@
             if (robux >= cost) {
                 robux -= cost;
                 document.getElementById('robux-count').innerText = robux;
-                alert('Successfully purchased ' + itemName + '!');
+                alert('Purchased ' + itemName + ' successfully!');
             } else {
-                alert('You do not have enough Robux to buy this item!');
+                alert('Not enough Robux!');
             }
         }
     </script>
