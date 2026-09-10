@@ -5,14 +5,21 @@ function switchPage(pageId) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(pageId).classList.add('active');
     
-    if (pageId === 'profile') {
-        updateProfileDisplay();
+    if (pageId === 'avatar') {
+        renderInventory();
+        updateAvatarDisplay();
     }
 }
 
 function launchGame(gameName) {
-    switchPage('game-player');
-    document.getElementById('playing-title').innerText = "Joining " + gameName + "...";
+    const overlay = document.getElementById('game-overlay');
+    document.getElementById('loading-game-title').innerText = "Joining " + gameName + "...";
+    overlay.classList.add('active');
+}
+
+function leaveGame() {
+    const overlay = document.getElementById('game-overlay');
+    overlay.classList.remove('active');
 }
 
 function changeTheme(theme) {
@@ -39,7 +46,7 @@ function buyItem(cost, itemName, color) {
         inventory.push({ name: itemName, color: color, equipped: false });
         renderInventory();
         
-        alert('Purchased ' + itemName + ' successfully! Check your Shop/Inventory tab.');
+        alert('Successfully purchased ' + itemName + '! Go to your Avatar tab to wear it.');
     } else {
         alert('Not enough Robux! Visit the Robux tab to get more for free.');
     }
@@ -48,7 +55,7 @@ function buyItem(cost, itemName, color) {
 function toggleEquip(index) {
     inventory[index].equipped = !inventory[index].equipped;
     renderInventory();
-    updateProfileDisplay();
+    updateAvatarDisplay();
 }
 
 function renderInventory() {
@@ -56,7 +63,7 @@ function renderInventory() {
     grid.innerHTML = '';
     
     if (inventory.length === 0) {
-        grid.innerHTML = '<p>Your inventory is empty. Buy items from the Catalog tab!</p>';
+        grid.innerHTML = '<p>Your inventory is empty. Buy items from the Shop tab first!</p>';
         return;
     }
 
@@ -77,21 +84,15 @@ function renderInventory() {
     });
 }
 
-function updateProfileDisplay() {
-    const avatarBox = document.getElementById('avatar-display');
+function updateAvatarDisplay() {
+    const hatContainer = document.getElementById('hat-container');
     const equippedItems = inventory.filter(item => item.equipped);
     
-    if (equippedItems.length === 0) {
-        avatarBox.innerHTML = '<span>No Items Equipped</span>';
-        return;
-    }
-    
-    avatarBox.innerHTML = '';
+    hatContainer.innerHTML = '';
     equippedItems.forEach(item => {
-        const badge = document.createElement('div');
-        badge.className = 'equipped-badge-item';
-        badge.style.background = item.color;
-        badge.innerText = item.name;
-        avatarBox.appendChild(badge);
+        const hatPiece = document.createElement('div');
+        hatPiece.className = 'equipped-hat-badge';
+        hatPiece.style.background = item.color;
+        hatContainer.appendChild(hatPiece);
     });
 }
