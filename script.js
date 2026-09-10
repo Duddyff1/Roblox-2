@@ -94,7 +94,7 @@ function attackDragon() {
     if (dragonHp <= 0) {
         dragonHp = 100;
         coins += 25;
-        alert('🎉 Dragon Defeated! You earned +25 Coins!');
+        appendChatMessage("System", "🎉 Dragon Defeated! You earned +25 Coins!");
     }
     document.getElementById('dragon-hp').innerText = dragonHp;
     document.getElementById('dragon-health-fill').style.width = dragonHp + '%';
@@ -168,7 +168,7 @@ function closeGameTab() {
 function executeTrade(itemName, color) {
     inventory.push({ name: itemName, color: color, equipped: false });
     saveData();
-    alert(`Successfully traded and received ${itemName}! Check your inventory.`);
+    appendChatMessage("System", `Successfully traded and received ${itemName}!`);
     openGameTab('inventory');
 }
 
@@ -177,6 +177,35 @@ function toggleEquipInGame(index) {
     saveData();
     openGameTab('inventory');
     updateIngameAvatarDisplay();
+}
+
+function handleChatKey(event) {
+    if (event.key === 'Enter') {
+        sendChatMessage();
+    }
+}
+
+function sendChatMessage() {
+    const input = document.getElementById('chat-input-field');
+    const text = input.value.trim();
+    if (text !== '') {
+        appendChatMessage("Duddyff1", text);
+        input.value = '';
+        
+        // Simulated response from bot player after 1 second
+        setTimeout(() => {
+            appendChatMessage("RobloxNoob123", "Nice! Good luck fighting!");
+        }, 1000);
+    }
+}
+
+function appendChatMessage(sender, message) {
+    const chatContainer = document.getElementById('chat-messages');
+    const msgDiv = document.createElement('div');
+    msgDiv.className = 'chat-msg';
+    msgDiv.innerHTML = `<span>[${sender}]:</span> ${message}`;
+    chatContainer.appendChild(msgDiv);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
 function changeTheme(theme, save = true) {
