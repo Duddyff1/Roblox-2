@@ -76,7 +76,6 @@ nav a {
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    position: relative;
 }
 
 nav a:hover {
@@ -248,7 +247,7 @@ h2 {
     100% { transform: rotate(360deg); }
 }
 
-/* ACTIVE IN-GAME SCREEN */
+/* ACTIVE IN-GAME 3D SCREEN */
 .active-game-container {
     position: fixed;
     top: 0;
@@ -285,46 +284,51 @@ h2 {
     flex: 1;
     display: flex;
     position: relative;
-    background: radial-gradient(circle, #2c3e50 0%, #000000 100%);
+    background: linear-gradient(to bottom, #1e3c72 0%, #2a5298 100%);
     overflow: hidden;
 }
 
 .game-control-panel {
     width: 200px;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.7);
     border-right: 1px solid #444;
     padding: 15px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     color: white;
+    z-index: 5;
 }
 
-.game-arena {
+.game-arena-3d {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
+    perspective: 900px;
 }
 
-.dragon-boss-box {
-    background: rgba(192, 57, 43, 0.8);
+.dragon-boss-3d {
+    background: rgba(192, 57, 43, 0.9);
     border: 2px solid #e74c3c;
-    padding: 15px;
+    padding: 12px;
     border-radius: 8px;
     color: white;
     text-align: center;
-    margin-bottom: 40px;
-    width: 250px;
+    position: absolute;
+    top: 30px;
+    width: 220px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    transform: translateZ(50px);
 }
 
 .health-bar-container {
     width: 100%;
-    height: 14px;
+    height: 12px;
     background: #444;
-    border-radius: 7px;
+    border-radius: 6px;
     overflow: hidden;
     margin-top: 5px;
 }
@@ -336,14 +340,174 @@ h2 {
     transition: width 0.3s;
 }
 
-.ingame-player-container {
-    text-align: center;
+/* 3D SCENE STYLING & RIG */
+.game-3d-scene-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform-style: preserve-3d;
+    transform: rotateX(12deg) rotateY(-15deg);
 }
 
-.scale-up {
-    transform: scale(1.4);
+.scale-up-3d {
+    transform: scale(1.6);
 }
 
+.roblox-boy-model-3d {
+    position: relative;
+    width: 90px;
+    height: 180px;
+    transform-style: preserve-3d;
+}
+
+.boy-head-3d {
+    width: 36px;
+    height: 36px;
+    background: #f1c40f;
+    border: 2px solid #000;
+    position: absolute;
+    top: 0;
+    left: 27px;
+    border-radius: 2px;
+    transform-style: preserve-3d;
+}
+
+.boy-hat-slot {
+    position: absolute;
+    top: -14px;
+    left: -4px;
+    right: -4px;
+    height: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+}
+
+.equipped-hat-badge {
+    width: 100%;
+    height: 12px;
+    border-radius: 2px;
+    border: 1px solid #000;
+}
+
+.boy-torso-3d {
+    width: 54px;
+    height: 64px;
+    background: #0074bd;
+    border: 2px solid #000;
+    position: absolute;
+    top: 38px;
+    left: 18px;
+    border-radius: 2px;
+}
+
+.boy-limbs-3d {
+    position: absolute;
+    top: 38px;
+    left: 6px;
+    width: 78px;
+    height: 100px;
+    transform-style: preserve-3d;
+}
+
+.boy-arm-3d {
+    width: 14px;
+    height: 64px;
+    background: #f1c40f;
+    border: 2px solid #000;
+    border-radius: 2px;
+    position: absolute;
+}
+
+.boy-arm-3d.left { left: -14px; }
+.boy-arm-3d.right { right: -14px; }
+
+.boy-leg-3d {
+    width: 22px;
+    height: 60px;
+    background: #2ecc71;
+    border: 2px solid #000;
+    border-radius: 2px;
+    position: absolute;
+    bottom: 0;
+}
+
+.boy-leg-3d.left { left: 11px; }
+.boy-leg-3d.right { right: 11px; }
+
+.player-shadow-3d {
+    width: 70px;
+    height: 25px;
+    background: rgba(0,0,0,0.4);
+    border-radius: 50%;
+    margin-top: 10px;
+}
+
+/* ROBLOX IN-GAME CHAT UI */
+.game-chat-box {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    width: 320px;
+    background: rgba(0, 0, 0, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-size: 13px;
+    z-index: 10;
+}
+
+.chat-messages-area {
+    padding: 10px;
+    max-height: 130px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: white;
+}
+
+.chat-msg span {
+    font-weight: bold;
+    color: #3498db;
+    margin-right: 4px;
+}
+
+.chat-input-row {
+    display: flex;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0,0,0,0.8);
+}
+
+.chat-input-row input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 8px 10px;
+    color: white;
+    font-size: 12px;
+    outline: none;
+}
+
+.chat-input-row button {
+    background: #0074bd;
+    color: white;
+    border: none;
+    padding: 0 12px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.chat-input-row button:hover {
+    background: #00a2ff;
+}
+
+/* RIGHT DRAWER PANEL */
 .game-drawer-panel {
     width: 280px;
     background: rgba(30, 30, 30, 0.95);
@@ -351,13 +515,14 @@ h2 {
     padding: 15px;
     display: none;
     flex-direction: column;
+    z-index: 5;
 }
 
 .game-drawer-panel.active {
     display: flex;
 }
 
-/* AVATAR EDITOR LAYOUT & 3D BOY STYLING */
+/* AVATAR EDITOR LAYOUT & 2D RIG */
 .avatar-editor-layout {
     display: flex;
     gap: 20px;
@@ -405,25 +570,6 @@ h2 {
     border-radius: 2px;
 }
 
-.boy-hat-slot {
-    position: absolute;
-    top: -14px;
-    left: -4px;
-    right: -4px;
-    height: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    align-items: center;
-}
-
-.equipped-hat-badge {
-    width: 100%;
-    height: 12px;
-    border-radius: 2px;
-    border: 1px solid #000;
-}
-
 .boy-torso {
     width: 54px;
     height: 64px;
@@ -450,15 +596,8 @@ h2 {
     border-radius: 2px;
 }
 
-.boy-arm.left {
-    position: absolute;
-    left: -16px;
-}
-
-.boy-arm.right {
-    position: absolute;
-    right: -16px;
-}
+.boy-arm.left { position: absolute; left: -16px; }
+.boy-arm.right { position: absolute; right: -16px; }
 
 .boy-leg {
     width: 22px;
@@ -470,13 +609,8 @@ h2 {
     bottom: 0;
 }
 
-.boy-leg.left {
-    left: 10px;
-}
-
-.boy-leg.right {
-    right: 10px;
-}
+.boy-leg.left { left: 10px; }
+.boy-leg.right { right: 10px; }
 
 .settings-box {
     background: var(--card-bg);
