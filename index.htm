@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloxSite - Home</title>
+    <style>
+        :root {
+            --roblox-red: #0074bd;
+            --roblox-dark: #111111;
+            --roblox-gray: #f3f3f3;
+            --card-bg: #ffffff;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: var(--roblox-gray);
+            color: #333;
+        }
+        header {
+            background-color: var(--roblox-dark);
+            color: white;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 0 16px;
+        }
+        h2 {
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 8px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+        }
+        .thumbnail {
+            height: 120px;
+            background-color: #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+        }
+        .card-body {
+            padding: 12px;
+        }
+        .card-title {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        .card-info {
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">ROBLOX</div>
+        <nav>
+            <a href="#">Games</a>
+            <a href="#">Catalog</a>
+            <a href="#">Develop</a>
+            <a href="#">Robux</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Featured Games</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="thumbnail">Game Icon</div>
+                <div class="card-body">
+                    <div class="card-title">Adopt Me!</div>
+                    <div class="card-info">👥 45.2K active</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="thumbnail">Game Icon</div>
+                <div class="card-body">
+                    <div class="card-title">Brookhaven RP</div>
+                    <div class="card-info">👥 89.1K active</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="thumbnail">Game Icon</div>
+                <div class="card-body">
+                    <div class="card-title">BedWars</div>
+                    <div class="card-info">👥 18.5K active</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="thumbnail">Game Icon</div>
+                <div class="card-body">
+                    <div class="card-title">Tower of Hell</div>
+                    <div class="card-info">👥 12.3K active</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
