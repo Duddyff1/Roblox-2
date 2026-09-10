@@ -3,133 +3,308 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BloxSite - Home</title>
+    <title>Roblox - Home</title>
     <style>
         :root {
-            --roblox-red: #0074bd;
-            --roblox-dark: #111111;
-            --roblox-gray: #f3f3f3;
+            --nav-bg: #111111;
+            --body-bg: #f3f3f3;
+            --text-color: #333333;
             --card-bg: #ffffff;
+            --accent-color: #0074bd;
+            --border-color: #dddddd;
         }
+
+        /* 2018 Classic Theme Variables */
+        body.theme-2018 {
+            --nav-bg: #1f1f1f;
+            --body-bg: #e6e6e6;
+            --text-color: #000000;
+            --card-bg: #ffffff;
+            --accent-color: #0084ff;
+            --border-color: #b3b3b3;
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            background-color: var(--roblox-gray);
-            color: #333;
+            background-color: var(--body-bg);
+            color: var(--text-color);
+            transition: background 0.3s, color 0.3s;
         }
+
         header {
-            background-color: var(--roblox-dark);
+            background-color: var(--nav-bg);
             color: white;
             padding: 12px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+
         .logo {
             font-size: 24px;
             font-weight: bold;
             letter-spacing: 1px;
-            color: #ffffff;
+            cursor: pointer;
         }
+
         nav a {
             color: white;
             text-decoration: none;
             margin-left: 20px;
             font-size: 14px;
+            cursor: pointer;
         }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .user-stats {
+            margin-left: 20px;
+            font-weight: bold;
+            color: #2ecc71;
+        }
+
         .container {
             max-width: 1100px;
             margin: 20px auto;
             padding: 0 16px;
         }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
         h2 {
-            border-bottom: 2px solid #ddd;
+            border-bottom: 2px solid var(--border-color);
             padding-bottom: 8px;
         }
+
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 16px;
             margin-top: 16px;
         }
+
         .card {
             background: var(--card-bg);
             border-radius: 6px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             overflow: hidden;
             transition: transform 0.2s;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
         }
+
         .card:hover {
             transform: translateY(-4px);
         }
+
         .thumbnail {
             height: 120px;
             background-color: #ccc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-            font-weight: bold;
+            background-size: cover;
+            background-position: center;
         }
+
         .card-body {
             padding: 12px;
         }
+
         .card-title {
             font-weight: bold;
             font-size: 14px;
             margin-bottom: 4px;
         }
+
         .card-info {
             font-size: 12px;
             color: #666;
+        }
+
+        .buy-btn {
+            margin-top: 8px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        .buy-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Settings Style */
+        .settings-box {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            max-width: 400px;
+        }
+
+        .settings-box label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .settings-box select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">ROBLOX</div>
+        <div class="logo" onclick="switchPage('home')">ROBLOX</div>
         <nav>
-            <a href="#">Games</a>
-            <a href="#">Catalog</a>
-            <a href="#">Develop</a>
-            <a href="#">Robux</a>
+            <a onclick="switchPage('home')">Games</a>
+            <a onclick="switchPage('catalog')">Catalog</a>
+            <a onclick="switchPage('settings')">Settings</a>
+            <span class="user-stats">R$ <span id="robux-count">500</span></span>
         </nav>
     </header>
 
     <div class="container">
-        <h2>Featured Games</h2>
-        <div class="grid">
-            <div class="card">
-                <div class="thumbnail">Game Icon</div>
-                <div class="card-body">
-                    <div class="card-title">Adopt Me!</div>
-                    <div class="card-info">👥 45.2K active</div>
+        
+        <!-- HOME / GAMES PAGE -->
+        <div id="home" class="page active">
+            <h2>Featured Games</h2>
+            <div class="grid">
+                <div class="card" onclick="alert('Launching Adopt Me!...')">
+                    <div class="thumbnail" style="background-image: url('https://tr.rbxcdn.com/186nd/9bfa24355208f23fef617d3dcfb188c0/150/150/Image/Png');"></div>
+                    <div class="card-body">
+                        <div class="card-title">Adopt Me!</div>
+                        <div class="card-info">👥 45.2K active</div>
+                    </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="thumbnail">Game Icon</div>
-                <div class="card-body">
-                    <div class="card-title">Brookhaven RP</div>
-                    <div class="card-info">👥 89.1K active</div>
+                <div class="card" onclick="alert('Launching Brookhaven RP...')">
+                    <div class="thumbnail" style="background-image: url('https://tr.rbxcdn.com/186nd/0d3aa4ee83688b1b22e1b157a9159f8c/150/150/Image/Png');"></div>
+                    <div class="card-body">
+                        <div class="card-title">Brookhaven RP</div>
+                        <div class="card-info">👥 89.1K active</div>
+                    </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="thumbnail">Game Icon</div>
-                <div class="card-body">
-                    <div class="card-title">BedWars</div>
-                    <div class="card-info">👥 18.5K active</div>
+                <div class="card" onclick="alert('Launching BedWars...')">
+                    <div class="thumbnail" style="background-image: url('https://tr.rbxcdn.com/186nd/8a2f814ea3b11efec67e41b9e2ed31e7/150/150/Image/Png');"></div>
+                    <div class="card-body">
+                        <div class="card-title">BedWars</div>
+                        <div class="card-info">👥 18.5K active</div>
+                    </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="thumbnail">Game Icon</div>
-                <div class="card-body">
-                    <div class="card-title">Tower of Hell</div>
-                    <div class="card-info">👥 12.3K active</div>
+                <div class="card" onclick="alert('Launching Tower of Hell...')">
+                    <div class="thumbnail" style="background-image: url('https://tr.rbxcdn.com/186nd/07a72d73df5a6e8e50b73c914e9185a6/150/150/Image/Png');"></div>
+                    <div class="card-body">
+                        <div class="card-title">Tower of Hell</div>
+                        <div class="card-info">👥 12.3K active</div>
+                    </div>
+                </div>
+                <div class="card" onclick="alert('Launching Blox Fruits...')">
+                    <div class="thumbnail" style="background-image: url('https://tr.rbxcdn.com/186nd/40590a2a290ed36423ca87807b5a837f/150/150/Image/Png');"></div>
+                    <div class="card-body">
+                        <div class="card-title">Blox Fruits</div>
+                        <div class="card-info">👥 348K active</div>
+                    </div>
+                </div>
+                <div class="card" onclick="alert('Launching Murder Mystery 2...')">
+                    <div class="thumbnail" style="background-image: url('https://tr.rbxcdn.com/186nd/4597b6e4e08b1cbca0fb13a0c4923e47/150/150/Image/Png');"></div>
+                    <div class="card-body">
+                        <div class="card-title">Murder Mystery 2</div>
+                        <div class="card-info">👥 62.1K active</div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- CATALOG / SHOP PAGE -->
+        <div id="catalog" class="page">
+            <h2>Avatar Shop / Catalog</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="thumbnail" style="background-image: url('https://tr.rbxcdn.com/6a56fbf383a1b802a80695d8206d289b/150/150/Image/Png');"></div>
+                    <div class="card-body">
+                        <div class="card-title">Dominus Empyreus</div>
+                        <div class="card-info">R$ 100</div>
+                        <button class="buy-btn" onclick="buyItem(100, 'Dominus Empyreus')">Buy Item</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="thumbnail" style="background-image: url('https://tr.rbxcdn.com/5333ae4c8529f798889aa79d681c2bc0/150/150/Image/Png');"></div>
+                    <div class="card-body">
+                        <div class="card-title">Valkyrie Helm</div>
+                        <div class="card-info">R$ 50</div>
+                        <button class="buy-btn" onclick="buyItem(50, 'Valkyrie Helm')">Buy Item</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="thumbnail" style="background-image: url('https://tr.rbxcdn.com/47d6928e0ec53aaef075a32b85e052cf/150/150/Image/Png');"></div>
+                    <div class="card-body">
+                        <div class="card-title">Party Fedora</div>
+                        <div class="card-info">R$ 15</div>
+                        <button class="buy-btn" onclick="buyItem(15, 'Party Fedora')">Buy Item</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SETTINGS PAGE -->
+        <div id="settings" class="page">
+            <h2>Settings</h2>
+            <div class="settings-box">
+                <label for="theme-selector">Select Website Theme:</label>
+                <select id="theme-selector" onchange="changeTheme(this.value)">
+                    <option value="modern">Modern Roblox Theme</option>
+                    <option value="2018">2018 Roblox Classic Theme</option>
+                </select>
+            </div>
+        </div>
+
     </div>
+
+    <script>
+        let robux = 500;
+
+        function switchPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show requested page
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function changeTheme(theme) {
+            if (theme === '2018') {
+                document.body.classList.add('theme-2018');
+            } else {
+                document.body.classList.remove('theme-2018');
+            }
+        }
+
+        function buyItem(cost, itemName) {
+            if (robux >= cost) {
+                robux -= cost;
+                document.getElementById('robux-count').innerText = robux;
+                alert('Successfully purchased ' + itemName + '!');
+            } else {
+                alert('You do not have enough Robux to buy this item!');
+            }
+        }
+    </script>
 
 </body>
 </html>
