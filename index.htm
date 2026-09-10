@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <!-- IN-GAME INTERACTIVE WINDOW (SLAY THE DRAGONS & OTHERS) -->
+    <!-- 3D IN-GAME WINDOW WITH CHAT, SHOP, INVENTORY, TRADING -->
     <div id="active-game-window" class="active-game-container">
         <div class="game-top-bar">
             <span id="active-game-name-display" style="font-weight: bold; font-size: 16px;">Slay the Dragons</span>
@@ -31,7 +31,7 @@
         </div>
 
         <div class="game-viewport">
-            <!-- Left Controls / Actions Panel -->
+            <!-- Left Controls Panel -->
             <div class="game-control-panel">
                 <h3>Actions</h3>
                 <button class="buy-btn" style="background: #e67e22;" onclick="attackDragon()">⚔️ Attack Dragon</button>
@@ -40,41 +40,52 @@
                 <button class="buy-btn" style="background: #1abc9c;" onclick="openGameTab('trading')">🤝 Trade Center</button>
             </div>
 
-            <!-- Center Arena / Avatar Renderer -->
-            <div class="game-arena">
-                <div id="dragon-boss" class="dragon-boss-box">
+            <!-- 3D Perspective Arena -->
+            <div class="game-arena-3d">
+                <div id="dragon-boss" class="dragon-boss-3d">
                     <h3>🐉 Dragon Boss</h3>
                     <p>HP: <span id="dragon-hp">100</span> / 100</p>
                     <div class="health-bar-container"><div id="dragon-health-fill" class="health-bar-fill"></div></div>
                 </div>
 
-                <!-- Player's Custom Avatar loaded into the game -->
-                <div class="ingame-player-container">
-                    <div class="roblox-boy-model scale-up">
-                        <div id="ingame-avatar-head" class="boy-head">
+                <!-- 3D Transform Avatar Rig -->
+                <div class="game-3d-scene-container">
+                    <div class="roblox-boy-model-3d scale-up-3d">
+                        <div id="ingame-avatar-head" class="boy-head-3d">
                             <div id="ingame-hat-container" class="boy-hat-slot"></div>
                         </div>
-                        <div class="boy-torso"></div>
-                        <div class="boy-limbs">
-                            <div class="boy-arm left"></div>
-                            <div class="boy-arm right"></div>
-                            <div class="boy-leg left"></div>
-                            <div class="boy-leg right"></div>
+                        <div class="boy-torso-3d"></div>
+                        <div class="boy-limbs-3d">
+                            <div class="boy-arm-3d left"></div>
+                            <div class="boy-arm-3d right"></div>
+                            <div class="boy-leg-3d left"></div>
+                            <div class="boy-leg-3d right"></div>
                         </div>
                     </div>
-                    <p style="color: white; font-weight: bold; margin-top: 5px;">Duddyff1 (You)</p>
+                    <div class="player-shadow-3d"></div>
+                    <p style="color: white; font-weight: bold; margin-top: 15px; text-shadow: 0 2px 4px #000;">Duddyff1 (You)</p>
+                </div>
+
+                <!-- ROBLOX IN-GAME CHAT BOX -->
+                <div class="game-chat-box">
+                    <div id="chat-messages" class="chat-messages-area">
+                        <div class="chat-msg"><span>[System]:</span> Welcome to the game! Use chat to talk to players.</div>
+                        <div class="chat-msg"><span>RobloxNoob123:</span> Anyone want to trade items?</div>
+                    </div>
+                    <div class="chat-input-row">
+                        <input type="text" id="chat-input-field" placeholder="To chat click here or press /..." onkeydown="handleChatKey(event)">
+                        <button onclick="sendChatMessage()">Send</button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Right Dynamic Menu Drawer (Shop / Inventory / Trading) -->
+            <!-- Right Dynamic Drawer Panel -->
             <div id="game-drawer" class="game-drawer-panel">
                 <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 5px;">
                     <h3 id="drawer-title" style="margin: 0; color: white;">Shop</h3>
                     <button onclick="closeGameTab()" style="background: none; border: none; color: white; font-size: 16px; cursor: pointer;">✕</button>
                 </div>
-                <div id="drawer-content" style="margin-top: 10px; overflow-y: auto; max-height: 380px;">
-                    <!-- Dynamically injected items -->
-                </div>
+                <div id="drawer-content" style="margin-top: 10px; overflow-y: auto; max-height: 380px;"></div>
             </div>
         </div>
     </div>
@@ -102,7 +113,6 @@
         <div id="home" class="page active">
             <h2>Featured Games</h2>
             <div class="grid">
-                <!-- Slay the Dragons Game Card -->
                 <div class="card" onclick="launchGame('Slay the Dragons', 'dragon')">
                     <div class="thumbnail" style="background: #e74c3c; background-image: url('image_43c4e1.png'); background-size: cover; background-position: center;"></div>
                     <div class="card-body">
